@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "browserify-shim": "~3.8.0",
+    "card": "^1.0.0",
     "creditcards": "~1.4.0"
   },
   "peerDependencies": {

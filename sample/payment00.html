@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width">
+  <link data-require="bootstrap-css@*" data-semver="3.3.1" rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+
+  <script data-require="angular.js@*" data-semver="1.3.7" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.js"></script>
+
+  <script data-require="angular-credit-cards@*" data-semver="2.0.0" src="https://rawgit.com/bendrucker/angular-credit-cards/v2.0.0/release/angular-credit-cards.js"></script>
+  <link rel="stylesheet" href="components/intl-tel-input/build/css/intlTelInput.css" />
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="app00.js"></script>
+
+
+
+  <!-- endbuild -->
+
+</head>
+
+<body ng-app="validationApp" ng-controller="mainController">
+
+  <input type="text" international-phone-number ng-model="phone">
+
+  <div class="container">
+
+    <h1>
+      <a href="https://github.com/bendrucker/angular-credit-cards">
+        angular-credit-cards
+      </a>
+    </h1>
+
+    <form name="userForm" ng-submit="submitForm()"  class = "col-lg-6" novalidate>
+
+
+      </form>
+
+    </div>
+
+</body>
+
+</html>

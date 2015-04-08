@@ -1,4 +1,6 @@
-angular.module('validationApp', ['credit-cards'])
+angular.module('validationApp',
+['credit-cards']
+)
 .controller('mainController', function($scope) {
 
   // function to submit the form after all validation has occurred
