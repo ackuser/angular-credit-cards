@@ -1,0 +1,61 @@
+{
+  "name": "angular-credit-cards",
+  "version": "2.2.1",
+  "description": "Angular directives for formatting and validating credit card inputs",
+  "main": "./src",
+  "scripts": {
+    "test": "karma start --single-run"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bendrucker/angular-credit-cards.git"
+  },
+  "keywords": [
+    "angular",
+    "credit",
+    "card",
+    "payments",
+    "validation",
+    "directive",
+    "form"
+  ],
+  "author": "Ben Drucker <bvdrucker@gmail.com> (http://www.bendrucker.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bendrucker/angular-credit-cards/issues"
+  },
+  "homepage": "https://github.com/bendrucker/angular-credit-cards",
+  "devDependencies": {
+    "angular": "~1.3.4",
+    "angular-mocks": "~1.3.4",
+    "browserify": "~6.3.3",
+    "browserify-istanbul": "0",
+    "chai": "1",
+    "karma": "0.12",
+    "karma-browserify": "^1.0.0",
+    "karma-chai-sinon": "0",
+    "karma-cli": "0",
+    "karma-coverage": "0.2.6",
+    "karma-mocha": "0",
+    "karma-phantomjs-launcher": "0",
+    "mocha": "1",
+    "partialify": "~3.1.1",
+    "sinon": "1",
+    "sinon-chai": "2"
+  },
+  "dependencies": {
+    "browserify-shim": "~3.8.0",
+    "creditcards": "~1.4.0"
+  },
+  "peerDependencies": {
+    "angular": "~1.3.0"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "angular": "global:angular"
+  }
+}
