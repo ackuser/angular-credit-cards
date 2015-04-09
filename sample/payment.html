@@ -130,8 +130,6 @@
                 </div>
               </div>
 
-
-
               <!--<div class = "">
               <label for = "InputNumber">Phone Number</label>
               <div class = "input-group">
@@ -152,7 +150,7 @@
             <div class = "input-group">
               <select id = "country" name = "country" ng-controller="CountryCtl" ng-model="country" required>
                 <option value="">-- Select a Country --</option>
-                <option ng-repeat="country in countries" value="{{country.code}}">{{country.name}}</option>
+                <option ng-repeat="country in countries" value="{{country.alpha-3}}">{{country.name}}</option>
               </select>
               <i class = "glyphicon glyphicon-asterisk"></i>
             </div>
@@ -407,7 +405,7 @@
         </div>
       </div>
 
-      <script src="components/jquery/dist/jquery.js"></script>
+      <script src="../components/jquery/dist/jquery.js"></script>
       <script src="components/intl-tel-input/build/js/intlTelInput.min.js"></script>
       <script src="components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
       <script src="components/international-phone-number/releases/international-phone-number.js"></script>
