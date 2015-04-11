@@ -1,10 +1,23 @@
 body{
   font-family: "Times New Roman", Times, serif;
   //color: #0095dd;
-  padding-top:30px; 
+  padding-top:30px;
 }
 
 label{
   font-family: "Times New Roman", Times, serif;
   color: #555;
+}
+.demo-container {
+    width: 100%;
+    max-width: 350px;
+    margin: 50px auto;
+}
+form {
+    margin: 30px;
+}
+input {
+    width: 200px;
+    margin: 10px auto;
+    display: block;
 }
