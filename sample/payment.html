@@ -28,14 +28,14 @@
 <body ng-app="validationApp" ng-controller="mainController">
 
 
-<div class="row">
+  <div class="row">
     <div style="width: 30%;float:left;">
       <h3>
         Purchase Transaction
         <br>
-         using Card
-         </h3>
-         <br>
+        using Card
+      </h3>
+      <br>
       <p>
         We only accept these cards
         <br>
@@ -46,207 +46,187 @@
         <p>
         </div>
 
-          <div class="card-wrapper" style="display: inline;width:30%;float:left;" height="100">
-          </div>
-
-          <img src = "img/cards.jpg" style="width: 15%;float:left;">
-
+        <div class="card-wrapper" style="display: inline;width:30%;float:left;" height="100">
         </div>
+
+        <img src = "img/cards.jpg" style="width: 15%;float:left;">
+
+      </div>
       <div class="container">
 
-        <h1>
-          <a href="#">
-            angular-credit-cards
-          </a>
-        </h1>
 
-        <div id = "contact_info" class="row">
-
-          <form name="userForm" ng-submit="submitForm()" class="form-container active" novalidate>
+        <form name="userForm" ng-submit="submitForm()" class="row active" novalidate>
 
 
-            <div id = "contact_info" class=".col-md-8 .col-md-6">
-              <h1>Contact Information</h1>
-              The fields marked with "*" are required fields
+          <div id = "contact_info" class="col-xs-6">
+            <h1>Contact Information</h1>
+            The fields marked with "*" are required fields
 
-              <!-- First Name -->
-              <div class="form-group" ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine}">
-                <label for = "InputLastname">First Name</label>
-                <div class = "input-group">
-                  <input type="text" name="firstname" id = "InputLast" class="form-control" ng-model="user.firstname" placeholder = "Enter Last Name" required>
-                  <span class = "input-group-addon">
-                    <select name = "title" id = "InputTitle">
-                      <!--<option></option> -->
-                      <option selected = "selected">Mr</option>
-                      <option>Mrs</option>
-                      <option>Ms</option>
-                    </select>
-                    <i class = "glyphicon glyphicon-asterisk"></i>
-                  </span>
-                </div>
-                <p ng-show="userForm.firstname.$invalid && !userForm.firstname.$pristine" role="alert" class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> You First Name is required.</p>
-              </div>
-
-
-              <!-- Middle Name -->
-              <div class = "form-group">
-                <label for = "InputMiddle">Middle Name</label>
-                <div class = "input-group">
-                  <input type = "text" class = "form-control" name = "middlename" id = "InputMiddle" placeholder = "Enter Middle Name">
-                  <span class = "input-group-addon"></span></div>
-                </div>
-
-
-                <!-- Last Name -->
-                <div class="form-group" ng-class="{ 'has-error' : userForm.lastname.$invalid && !userForm.lastname.$pristine}">
-                  <label for = "InputLastname">Last Name</label>
-                  <div class = "input-group">
-                    <input type="text" name="lastname" id = "InputLast" class="form-control" ng-model="user.lastname" placeholder = "Enter Last Name" required>
-                    <span class = "input-group-addon">
-                      <i class = "glyphicon glyphicon-asterisk"></i>
-                    </span>
-                  </div>
-                  <p ng-show="userForm.lastname.$invalid && !userForm.lastname.$pristine" role="alert" class="alert alert-danger">
-                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    You Last Name is required.
-                  </p>
-                </div>
-                <div class = "form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine}">
-                  <label for = "InputEmail">Your Email</label>
-                  <div class = "input-group">
-                    <input type = "email" class = "form-control" id = "InputEmail" name = "email" ng-model="user.email" placeholder = "Enter Email" required >
-                    <span class = "input-group-addon">
-                      <i class = "glyphicon glyphicon-asterisk"></i>
-                    </span>
-                  </div>
-                  <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" role="alert" class="alert alert-danger">
-                    <span class="glyphicon glyphicon-exclamation-sign"></span>
-                    Enter a valid email address.
-                  </p>
-                </div>
-
-                <div class = "form-group">
-                  <label for = "InputCompany">Company Name</label>
-                  <div class = "input-group">
-                    <input type = "text" class = "form-control" name = "company" id = "InputCompany" placeholder = "Enter Company Name">
-                    <span class = "input-group-addon"></span>
-                  </div>
-                </div>
-
-                <!--<div class = "">
-                <label for = "InputNumber">Phone Number</label>
-                <div class = "input-group">
-                <input type = "tel" class = "" name = "phone" id = "InputNumber" placeholder = "Enter Phone">
-              </div>
-            </div> -->
-
-
-          </div>
-
-
-
-          <div id="card_details"  class=".col-md-8 .col-md-6">
-            <h1>Card Details</h1>
-
-            <div class = "form-group">
-              <label for = "InputCountry">Country</label>
+            <!-- First Name -->
+            <div class="form-group" ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine}">
+              <label for = "InputLastname">First Name</label>
               <div class = "input-group">
-                <select id = "country" name = "country" ng-controller="CountryCtl" ng-model="country" required>
-                  <option value="">-- Select a Country --</option>
-                  <option ng-repeat="country in countries" value="{{country.alpha-3}}">{{country.name}}</option>
-                </select>
-                <i class = "glyphicon glyphicon-asterisk"></i>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="InputCounty">County</label>
-              <div class="input-group">
-                <input type="text" class="form-control" name="county" id="InputCounty" placeholder="Enter County" required>
-                <span class="input-group-addon">
-                  <i class = "glyphicon glyphicon-asterisk"></i>
-                </span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="InputCity">City</label>
-              <div class="input-group">
-                <input type="text" class="form-control" name="city" id="InputCounty" placeholder="Enter City" required>
-                <span class="input-group-addon">
-                  <i class = "glyphicon glyphicon-asterisk"></i>
-                </span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="InputAddress">Address</label>
-              <div class="input-group">
-                <input type="text" class="form-control" name="address" id="InputAddress" placeholder="Enter Address" required>
-                <span class="input-group-addon">
-                  <i class = "glyphicon glyphicon-asterisk"></i>
-                </span>
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="InputPostcode">Post Code</label>
-              <div class="input-group">
-                <input type="text" class="form-control" name="postcode" id="InputPostcode" placeholder="Enter Post Code">
-                <span class="input-group-addon"></span>
-              </div>
-            </div>
-
-
-            <br>
-            <br>
-
-            <div class = "form-group">
-              <label for = "InputNumber">Card Number</label>
-              <div class = "input-group">
-                <input type = "text" class = "form-control credit_card_number" cc-number
-                name = "ccNumber" id = "cardNumber" ng-model="card.number"
-                placeholder = "Enter Your Credit Card number xxxx xxxx xxxx xxxx"
-                autocomplete="off" required>
+                <input type="text" name="firstname" id = "InputLast" class="form-control" ng-model="user.firstname" placeholder = "Enter Last Name" required>
                 <span class = "input-group-addon">
-                  <select id = "InputCardtype" name = "cardtype" required>
-                    <option value = "ELEC">Visa Electron</option>
-                    <option value = "VISAUK">Visa Debit UK</option>
-                    <option value = "VISA" selected>Visa</option>
-                    <option value = "MCRD">MasterCard</option>
-                    <option value = "MCDB">MasterCard Debit</option>
-                    <option value = "MSTO" >Maestro</option>
-                    <option value = "AMEX">American Express</option>
-                    <option value = "DINE">Diners</option>
+                  <select name = "title" id = "InputTitle">
+                    <!--<option></option> -->
+                    <option selected = "selected">Mr</option>
+                    <option>Mrs</option>
+                    <option>Ms</option>
                   </select>
                   <i class = "glyphicon glyphicon-asterisk"></i>
                 </span>
               </div>
+              <p ng-show="userForm.firstname.$invalid && !userForm.firstname.$pristine" role="alert" class="alert alert-danger"><span class="glyphicon glyphicon-exclamation-sign"></span> You First Name is required.</p>
+            </div>
+
+
+            <!-- Middle Name -->
+            <div class = "form-group">
+              <label for = "InputMiddle">Middle Name</label>
+              <div class = "input-group">
+                <input type = "text" class = "form-control" name = "middlename" id = "InputMiddle" placeholder = "Enter Middle Name">
+                <span class = "input-group-addon"></span></div>
+              </div>
+
+
+              <!-- Last Name -->
+              <div class="form-group" ng-class="{ 'has-error' : userForm.lastname.$invalid && !userForm.lastname.$pristine}">
+                <label for = "InputLastname">Last Name</label>
+                <div class = "input-group">
+                  <input type="text" name="lastname" id = "InputLast" class="form-control" ng-model="user.lastname" placeholder = "Enter Last Name" required>
+                  <span class = "input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+                <p ng-show="userForm.lastname.$invalid && !userForm.lastname.$pristine" role="alert" class="alert alert-danger">
+                  <span class="glyphicon glyphicon-exclamation-sign"></span>
+                  You Last Name is required.
+                </p>
+              </div>
+              <div class = "form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine}">
+                <label for = "InputEmail">Your Email</label>
+                <div class = "input-group">
+                  <input type = "email" class = "form-control" id = "InputEmail" name = "email" ng-model="user.email" placeholder = "Enter Email" required >
+                  <span class = "input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+                <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" role="alert" class="alert alert-danger">
+                  <span class="glyphicon glyphicon-exclamation-sign"></span>
+                  Enter a valid email address.
+                </p>
+              </div>
+
+              <div class = "form-group">
+                <label for = "InputCompany">Company Name</label>
+                <div class = "input-group">
+                  <input type = "text" class = "form-control" name = "company" id = "InputCompany" placeholder = "Enter Company Name">
+                  <span class = "input-group-addon"></span>
+                </div>
+              </div>
+
+              <!--<div class = "">
+              <label for = "InputNumber">Phone Number</label>
+              <div class = "input-group">
+              <input type = "tel" class = "" name = "phone" id = "InputNumber" placeholder = "Enter Phone">
+            </div>
+          </div> -->
+
+
+        </div>
+
+
+
+        <div id="card_details"  class="col-xs-6">
+          <h1>Card Details</h1>
+
+          <div class = "form-group">
+            <label for = "InputCountry">Country</label>
+            <div class = "input-group">
+              <select id = "country" name = "country" ng-controller="CountryCtl" ng-model="country" required>
+                <option value="">-- Select a Country --</option>
+                <option ng-repeat="country in countries" value="{{country.alpha-3}}">{{country.name}}</option>
+              </select>
+              <i class = "glyphicon glyphicon-asterisk"></i>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="InputCounty">County</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="county" id="InputCounty" placeholder="Enter County" required>
+              <span class="input-group-addon">
+                <i class = "glyphicon glyphicon-asterisk"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="InputCity">City</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="city" id="InputCounty" placeholder="Enter City" required>
+              <span class="input-group-addon">
+                <i class = "glyphicon glyphicon-asterisk"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="InputAddress">Address</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="address" id="InputAddress" placeholder="Enter Address" required>
+              <span class="input-group-addon">
+                <i class = "glyphicon glyphicon-asterisk"></i>
+              </span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="InputPostcode">Post Code</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="postcode" id="InputPostcode" placeholder="Enter Post Code">
+              <span class="input-group-addon"></span>
             </div>
           </div>
 
+
+          <br>
+          <br>
+
+          <div class = "form-group">
+            <label for = "InputNumber">Card Number</label>
+            <div class = "input-group">
+              <input type = "text" class = "form-control credit_card_number" cc-number
+              name = "ccNumber" id = "cardNumber" ng-model="card.number"
+              placeholder = "Enter Your Credit Card number xxxx xxxx xxxx xxxx"
+              autocomplete="off" required>
+              <span class = "input-group-addon">
+                <select id = "InputCardtype" name = "cardtype" required>
+                  <option value = "ELEC">Visa Electron</option>
+                  <option value = "VISAUK">Visa Debit UK</option>
+                  <option value = "VISA" selected>Visa</option>
+                  <option value = "MCRD">MasterCard</option>
+                  <option value = "MCDB">MasterCard Debit</option>
+                  <option value = "MSTO" >Maestro</option>
+                  <option value = "AMEX">American Express</option>
+                  <option value = "DINE">Diners</option>
+                </select>
+                <i class = "glyphicon glyphicon-asterisk"></i>
+              </span>
+            </div>
+          </div>
+
+
           <table class="table">
-
             <tr>
-
               <th>Valid</th>
-
               <th>Type</th>
-
             </tr>
-
             <tr>
-
               <td>
-
                 {{userForm.ccNumber.$valid | yesNo}}
-
               </td>
-
               <td>
-
                 {{userForm.ccNumber.$ccType || 'Unknown'}}
-
               </td>
-
             </tr>
-
           </table>
 
           <div class="form-group">
@@ -257,23 +237,14 @@
           </div>
 
           <table class="table">
-
             <tr>
-
               <th>Valid</th>
-
             </tr>
-
             <tr>
-
               <td>
-
                 {{userForm.ccCvc.$valid | yesNo}}
-
               </td>
-
             </tr>
-
           </table>
 
           <div class="form-group">
@@ -287,51 +258,30 @@
               <div class="col-xs-3">
                 <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" maxlength="2">
               </div>
-
             </div>
-
           </div>
 
+
+
           <table class="table">
-
             <tr>
-
               <th>Valid Month</th>
-
               <th>Valid Year</th>
-
               <th>Valid Pair</th>
-
             </tr>
-
             <tr>
-
               <td>
-
                 {{userForm.ccExpMonth.$valid | yesNo}}
-
               </td>
-
               <td>
-
                 {{userForm.ccExpYear.$valid | yesNo}}
-
               </td>
-
               <td>
-
                 {{!userForm.$error.ccExp | yesNo}}
-
               </td>
-
             </tr>
-
           </table>
-
-
-
         </form>
-
       </div>
     </div>
     <!-- =================================================================== -->

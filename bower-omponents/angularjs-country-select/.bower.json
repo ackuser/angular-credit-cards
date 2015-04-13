@@ -1,0 +1,13 @@
+{
+  "name": "angularjs-country-select",
+  "homepage": "https://github.com/banafederico/angularjs-country-select",
+  "_release": "5e3920a4be",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "5e3920a4be1cbb87b91c1c0881761ee0b91c85d9"
+  },
+  "_source": "git://github.com/banafederico/angularjs-country-select.git",
+  "_target": "*",
+  "_originalSource": "angularjs-country-select"
+}
