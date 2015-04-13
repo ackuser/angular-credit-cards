@@ -52,13 +52,13 @@
         <img src = "img/cards.jpg" style="width: 15%;float:left;">
 
       </div>
-      <div class="container">
+      <div class="row">
 
 
-        <form name="userForm" ng-submit="submitForm()" class="row active" novalidate>
+        <form name="userForm" ng-submit="submitForm()" class="active" novalidate>
 
 
-          <div id = "contact_info" class="col-xs-6">
+          <div id = "contact_info" class="col-xs-4">
             <h1>Contact Information</h1>
             The fields marked with "*" are required fields
 
@@ -138,8 +138,8 @@
 
 
 
-        <div id="card_details"  class="col-xs-6">
-          <h1>Card Details</h1>
+        <div id="billing_details"  class="col-xs-4">
+          <h1>Billing Details</h1>
 
           <div class = "form-group">
             <label for = "InputCountry">Country</label>
@@ -186,10 +186,14 @@
             </div>
           </div>
 
+        </div>
+        <br>
+        <br>
 
-          <br>
-          <br>
 
+
+        <div id="card_details"  class="col-xs-4">
+          <h1>Card Info</h1>
           <div class = "form-group">
             <label for = "InputNumber">Card Number</label>
             <div class = "input-group">
@@ -213,148 +217,173 @@
             </div>
           </div>
 
-
-          <table class="table">
-            <tr>
-              <th>Valid</th>
-              <th>Type</th>
-            </tr>
-            <tr>
-              <td>
-                {{userForm.ccNumber.$valid | yesNo}}
-              </td>
-              <td>
-                {{userForm.ccNumber.$ccType || 'Unknown'}}
-              </td>
-            </tr>
-          </table>
-
-          <div class="form-group">
+          <div class="form-group row">
             <div class="col-xs-3">
               <label for="cvc">CVC</label>
-              <input type="text" class="form-control" id="cvc" cc-cvc cc-type="userForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" size="4" maxlength="4">
+              <input type="text" class="form-control" id="cvc" cc-cvc cc-type="userForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" size="4" placeholder="CVC" maxlength="4">
             </div>
           </div>
-
-          <table class="table">
-            <tr>
-              <th>Valid</th>
-            </tr>
-            <tr>
-              <td>
-                {{userForm.ccCvc.$valid | yesNo}}
-              </td>
-            </tr>
-          </table>
 
           <div class="form-group">
-            <label for="card-number">Expiration</label>
-            <div class="row" cc-exp>
-
-              <div class="col-xs-3">
-                <input type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" placeholder="MM" maxlength="2">
-              </div>
-
-              <div class="col-xs-3">
-                <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" maxlength="2">
-              </div>
+            <label>Expiration Date</label>
+            <div class="input-group col-xs-3" cc-exp>
+              <input type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" placeholder="MM" size="2" maxlength="2">
+              <span class="input-group-addon"> <strong>/</strong> </span>
+              <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" size="2" maxlength="2">
             </div>
           </div>
 
+          <div class="form-group">
+            <label>Amount</label>
+            <div class="input-group col-xs-8" cc-exp>
+              <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="3" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required>
+              <span class="input-group-addon"> <strong>.</strong> </span>
+              <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="4" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL">
+              <span class="input-group-addon">
+                <select id="InputCurrency" name="currency" required>
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP" selected>GBP</option>
+                </select>
+                <i class = "glyphicon glyphicon-asterisk"></i>
+              </span>
+            </div>
+          </div>
 
+          <!--<div class="form-group">
+            <label for="InputAmount">Amount</label>
+            <div class="input-group">
+              <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="2" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required>
+              <span class="input-group-addon"> <strong>.</strong> </span>
+              <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="2" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL">
+            </div>
+          </div>-->
 
-          <table class="table">
-            <tr>
-              <th>Valid Month</th>
-              <th>Valid Year</th>
-              <th>Valid Pair</th>
-            </tr>
-            <tr>
-              <td>
-                {{userForm.ccExpMonth.$valid | yesNo}}
-              </td>
-              <td>
-                {{userForm.ccExpYear.$valid | yesNo}}
-              </td>
-              <td>
-                {{!userForm.$error.ccExp | yesNo}}
-              </td>
-            </tr>
-          </table>
-        </form>
-      </div>
+          <div class="form-group">
+            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+          </div>
+        </div>
+
+      </form>
     </div>
-    <!-- =================================================================== -->
-    <!-- VALIDATION TABLES ================================================= -->
-    <!-- =================================================================== -->
-    <div class="row">
-      <div class="col-xs-3">
-        <h3>Form</h3>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td ng-class="{ success: userForm.$valid, danger: userForm.$invalid }">Valid</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.$pristine, danger: !userForm.$pristine }">Pristine</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.$dirty }">Dirty</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-xs-3">
-        <h3>Name</h3>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td ng-class="{ success: userForm.firstname.$valid, danger: userForm.firstname.$invalid }">Valid</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.firstname.$pristine, danger: !userForm.firstname.$pristine }">Pristine</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.firstname.$dirty }">Dirty</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-xs-3">
-        <h3>Username</h3>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td ng-class="{ success: userForm.lastname.$valid, danger: userForm.lastname.$invalid }">Valid</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.lastname.$pristine, danger: !userForm.lastname.$pristine }">Pristine</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.lastname.$dirty }">Dirty</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="col-xs-3">
-        <h3>Email</h3>
-        <table class="table table-bordered">
-          <tbody>
-            <tr>
-              <td ng-class="{ success: userForm.email.$valid, danger: userForm.email.$invalid }">Valid</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.email.$pristine, danger: !userForm.email.$pristine }">Pristine</td>
-            </tr>
-            <tr>
-              <td ng-class="{ success: userForm.email.$dirty }">Dirty</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
   </div>
+  <!-- =================================================================== -->
+  <!-- VALIDATION TABLES ================================================= -->
+  <!-- =================================================================== -->
+  <table class="table">
+    <tr>
+      <th>Valid Card?</th>
+      <th>Detection Card Type</th>
+    </tr>
+    <tr>
+      <td>
+        {{userForm.ccNumber.$valid | yesNo}}
+      </td>
+      <td>
+        {{userForm.ccNumber.$ccType || 'Unknown'}}
+      </td>
+    </tr>
+  </table>
+
+
+  <table class="table">
+    <tr>
+      <th>Valid CVC</th>
+    </tr>
+    <tr>
+      <td>
+        {{userForm.ccCvc.$valid | yesNo}}
+      </td>
+    </tr>
+  </table>
+
+  <table class="table">
+    <tr>
+      <th>Valid Month?</th>
+      <th>Valid Year?</th>
+      <th>Valid Pair  ==></th>
+    </tr>
+    <tr>
+      <td>
+        {{userForm.ccExpMonth.$valid | yesNo}}
+      </td>
+      <td>
+        {{userForm.ccExpYear.$valid | yesNo}}
+      </td>
+      <td>
+        {{!userForm.$error.ccExp | yesNo}}
+      </td>
+    </tr>
+  </table>
+
+  <div class="row">
+    <div class="col-xs-3">
+      <h3>Form</h3>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td ng-class="{ success: userForm.$valid, danger: userForm.$invalid }">Valid</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.$pristine, danger: !userForm.$pristine }">Pristine</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.$dirty }">Dirty</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-3">
+      <h3>Name</h3>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td ng-class="{ success: userForm.firstname.$valid, danger: userForm.firstname.$invalid }">Valid</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.firstname.$pristine, danger: !userForm.firstname.$pristine }">Pristine</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.firstname.$dirty }">Dirty</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-3">
+      <h3>Username</h3>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td ng-class="{ success: userForm.lastname.$valid, danger: userForm.lastname.$invalid }">Valid</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.lastname.$pristine, danger: !userForm.lastname.$pristine }">Pristine</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.lastname.$dirty }">Dirty</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-3">
+      <h3>Email</h3>
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td ng-class="{ success: userForm.email.$valid, danger: userForm.email.$invalid }">Valid</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.email.$pristine, danger: !userForm.email.$pristine }">Pristine</td>
+          </tr>
+          <tr>
+            <td ng-class="{ success: userForm.email.$dirty }">Dirty</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>
 </div>
 </div>
 
