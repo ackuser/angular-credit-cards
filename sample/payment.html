@@ -156,32 +156,44 @@
                   <i class = "glyphicon glyphicon-asterisk"></i>
                 </div>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.county.$invalid && !userForm.county.$pristine}">
                 <label for="InputCounty">County</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="county" id="InputCounty" placeholder="Enter County" required>
+                  <input type="text" class="form-control" name="county" id="InputCounty" ng-model="user.county" placeholder="Enter County" required>
                   <span class="input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
                 </div>
+                <p ng-show="userForm.county.$invalid && !userForm.county.$pristine" role="alert" class="alert alert-danger">
+                  <span class="glyphicon glyphicon-exclamation-sign"></span>
+                  Your county cannot be empty.
+                </p>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine}">
                 <label for="InputCity">City</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="city" id="InputCounty" placeholder="Enter City" required>
+                  <input type="text" class="form-control" name="city" id="InputCity" ng-model="user.city" placeholder="Enter City" required>
                   <span class="input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
                 </div>
+                <p ng-show="userForm.city.$invalid && !userForm.city.$pristine" role="alert" class="alert alert-danger">
+                  <span class="glyphicon glyphicon-exclamation-sign"></span>
+                  Your city cannot be empty.
+                </p>
               </div>
-              <div class="form-group">
+              <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine}">
                 <label for="InputAddress">Address</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="address" id="InputAddress" placeholder="Enter Address" required>
+                  <input type="text" class="form-control" name="address" id="InputAddress" ng-model="user.address" placeholder="Enter Address" required>
                   <span class="input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
                 </div>
+                <p ng-show="userForm.address.$invalid && !userForm.address.$pristine" role="alert" class="alert alert-danger">
+                  <span class="glyphicon glyphicon-exclamation-sign"></span>
+                  Your address cannot be empty.
+                </p>
               </div>
               <div class="form-group">
                 <label for="InputPostcode">Post Code</label>
@@ -254,132 +266,181 @@
                   </span>
                 </div>
               </div>
+              
 
               <div vc-recaptcha theme="'light'" key="model.key"
               on-create="setWidgetId(widgetId)" on-success="setResponse(response)">
-              </div>
               <div class="form-group">
                 <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
               </div>
             </div>
+          </div>
 
-          </form>
-        </div>
+        </form>
       </div>
-      <!-- =================================================================== -->
-      <!-- VALIDATION TABLES ================================================= -->
-      <!-- =================================================================== -->
-      <table class="table">
-        <tr>
-          <th>Valid Card?</th>
-          <th>Detection Card Type</th>
-        </tr>
-        <tr>
-          <td>
-            {{userForm.ccNumber.$valid | yesNo}}
-          </td>
-          <td>
-            {{userForm.ccNumber.$ccType || 'Unknown'}}
-          </td>
-        </tr>
-      </table>
-
-
-      <table class="table">
-        <tr>
-          <th>Valid CVC</th>
-        </tr>
-        <tr>
-          <td>
-            {{userForm.ccCvc.$valid | yesNo}}
-          </td>
-        </tr>
-      </table>
-
-      <table class="table">
-        <tr>
-          <th>Valid Month?</th>
-          <th>Valid Year?</th>
-        </tr>
-        <tr>
-          <td>
-            {{userForm.ccExpMonth.$valid | yesNo}}
-          </td>
-          <td>
-            {{userForm.ccExpYear.$valid | yesNo}}
-          </td>
-        </tr>
-      </table>
-
-      <div class="row">
-        <div class="col-xs-3">
-          <h3>Form</h3>
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td ng-class="{ success: userForm.$valid, danger: userForm.$invalid }">Valid</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.$pristine, danger: !userForm.$pristine }">Pristine</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.$dirty }">Dirty</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-xs-3">
-          <h3>Name</h3>
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td ng-class="{ success: userForm.firstname.$valid, danger: userForm.firstname.$invalid }">Valid</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.firstname.$pristine, danger: !userForm.firstname.$pristine }">Pristine</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.firstname.$dirty }">Dirty</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-xs-3">
-          <h3>Username</h3>
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td ng-class="{ success: userForm.lastname.$valid, danger: userForm.lastname.$invalid }">Valid</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.lastname.$pristine, danger: !userForm.lastname.$pristine }">Pristine</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.lastname.$dirty }">Dirty</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="col-xs-3">
-          <h3>Email</h3>
-          <table class="table table-bordered">
-            <tbody>
-              <tr>
-                <td ng-class="{ success: userForm.email.$valid, danger: userForm.email.$invalid }">Valid</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.email.$pristine, danger: !userForm.email.$pristine }">Pristine</td>
-              </tr>
-              <tr>
-                <td ng-class="{ success: userForm.email.$dirty }">Dirty</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
     </div>
+    <!-- =================================================================== -->
+    <!-- VALIDATION TABLES ================================================= -->
+    <!-- =================================================================== -->
+    <table class="table">
+      <tr>
+        <th>Valid Card?</th>
+        <th>Detection Card Type</th>
+      </tr>
+      <tr>
+        <td>
+          {{userForm.ccNumber.$valid | yesNo}}
+        </td>
+        <td>
+          {{userForm.ccNumber.$ccType || 'Unknown'}}
+        </td>
+      </tr>
+    </table>
+
+
+    <table class="table">
+      <tr>
+        <th>Valid CVC</th>
+      </tr>
+      <tr>
+        <td>
+          {{userForm.ccCvc.$valid | yesNo}}
+        </td>
+      </tr>
+    </table>
+
+    <table class="table">
+      <tr>
+        <th>Valid Month?</th>
+        <th>Valid Year?</th>
+      </tr>
+      <tr>
+        <td>
+          {{userForm.ccExpMonth.$valid | yesNo}}
+        </td>
+        <td>
+          {{userForm.ccExpYear.$valid | yesNo}}
+        </td>
+      </tr>
+    </table>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <h3>Form</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.$valid, danger: userForm.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.$pristine, danger: !userForm.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <h3>Name</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.firstname.$valid, danger: userForm.firstname.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.firstname.$pristine, danger: !userForm.firstname.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.firstname.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <h3>Username</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.lastname.$valid, danger: userForm.lastname.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.lastname.$pristine, danger: !userForm.lastname.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.lastname.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <h3>Email</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.email.$valid, danger: userForm.email.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.email.$pristine, danger: !userForm.email.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.email.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <h3>County</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.county.$valid, danger: userForm.county.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.county.$pristine, danger: !userForm.county.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.county.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <h3>City</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.city.$valid, danger: userForm.city.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.city.$pristine, danger: !userForm.city.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.city.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-xs-3">
+        <h3>Address</h3>
+        <table class="table table-bordered">
+          <tbody>
+            <tr>
+              <td ng-class="{ success: userForm.address.$valid, danger: userForm.address.$invalid }">Valid</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.address.$pristine, danger: !userForm.address.$pristine }">Pristine</td>
+            </tr>
+            <tr>
+              <td ng-class="{ success: userForm.address.$dirty }">Dirty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
   </div>
+</div>
 </div>
 
 
