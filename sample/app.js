@@ -1,7 +1,7 @@
 angular.module('validationApp',
 ['credit-cards','internationalPhoneNumber','vcRecaptcha']
 )
-.controller('mainController', function($scope, $http) {
+.controller('mainController', function($scope, $http, element, attrs, ctrl) {
 
   // function to submit the form after all validation has occurred
   $scope.submit = function() {
@@ -28,22 +28,13 @@ angular.module('validationApp',
       });
 
 })
-.filter('yesNo', function () {
-
-  return function (boolean) {
-
-    return boolean ? 'Yes' : 'No';
-
-  }
-
-})
 .controller('testCtrl', function ($scope, vcRecaptchaService) {
     console.log("this is your app's controller");
     $scope.response = null;
     $scope.widgetId = null;
 
     $scope.model = {
-        key: '=== REPLACE THIS WITH YOUR PUBLIC ReCaptcha KEY ==='
+        key: 'YOUR KEY'
     };
 
     $scope.setResponse = function (response) {
@@ -80,4 +71,13 @@ angular.module('validationApp',
             vcRecaptchaService.reload($scope.widgetId);
         }
     };
+})
+.filter('yesNo', function () {
+
+  return function (boolean) {
+
+    return boolean ? 'Yes' : 'No';
+
+  }
+
 });
