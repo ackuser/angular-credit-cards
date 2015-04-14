@@ -13,10 +13,15 @@
   <script data-require="angular.js@*" data-semver="1.3.7" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.7/angular.js"></script>
 
   <script data-require="angular-credit-cards@*" data-semver="2.0.0" src="https://rawgit.com/bendrucker/angular-credit-cards/v2.0.0/release/angular-credit-cards.js"></script>
-  <link rel="stylesheet" href="components/intl-tel-input/build/css/intlTelInput.css" />
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="../bower_components/intl-tel-input/build/css/intlTelInput.css" />
 
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Include the JS ReCaptcha API -->
+  <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
+
+  <!-- Include the ngReCaptcha directive -->
+  <script src="../bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
 
   <script src="app.js"></script>
 
@@ -25,7 +30,7 @@
 
 </head>
 
-<body ng-app="validationApp" ng-controller="mainController">
+<body ng-app="validationApp" ng-controller="testCtrl">
 
 
   <div class="row">
@@ -55,12 +60,12 @@
       <div class="row">
 
 
-        <form name="userForm" ng-submit="submitForm()" class="active" novalidate>
+        <form name="userForm" ng-submit="submit()" class="active" novalidate>
 
 
           <div id = "contact_info" class="col-xs-4">
             <h1>Contact Information</h1>
-            The fields marked with "*" are required fields
+            The fields marked with "<i class = "glyphicon glyphicon-asterisk"></i>" are required fields
 
             <!-- First Name -->
             <div class="form-group" ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine}">
@@ -126,272 +131,264 @@
                 </div>
               </div>
 
-              <!--<div class = "">
-              <label for = "InputNumber">Phone Number</label>
-              <div class = "input-group">
-              <input type = "tel" class = "" name = "phone" id = "InputNumber" placeholder = "Enter Phone">
+              <div class = "">
+                <label for = "InputNumber">Phone Number</label>
+                <div class = "input-group">
+                  <input type="text" international-phone-number only-countries="pl, de, en, es" default-country="pl" preferred-countries="pl, de" ng-model="phone">
+                </div>
+              </div>
+
+
             </div>
-          </div> -->
 
 
+
+            <div id="billing_details"  class="col-xs-4">
+              <h1>Billing Details</h1>
+
+              <div class = "form-group">
+                <label for = "InputCountry">Country</label>
+                <div class = "input-group">
+                  <select id = "country" name = "country" ng-controller="CountryCtl" ng-model="country" required>
+                    <option value="">-- Select a Country --</option>
+                    <option ng-repeat="country in countries" value="{{country.alpha-3}}">{{country.name}}</option>
+                  </select>
+                  <i class = "glyphicon glyphicon-asterisk"></i>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="InputCounty">County</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="county" id="InputCounty" placeholder="Enter County" required>
+                  <span class="input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="InputCity">City</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="city" id="InputCounty" placeholder="Enter City" required>
+                  <span class="input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="InputAddress">Address</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="address" id="InputAddress" placeholder="Enter Address" required>
+                  <span class="input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="InputPostcode">Post Code</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="postcode" id="InputPostcode" placeholder="Enter Post Code">
+                  <span class="input-group-addon"></span>
+                </div>
+              </div>
+
+            </div>
+            <br>
+            <br>
+
+
+
+            <div id="card_details"  class="col-xs-4">
+              <h1>Card Info</h1>
+              <div class = "form-group">
+                <label for = "InputNumber">Card Number</label>
+                <div class = "input-group">
+                  <input type = "text" class = "form-control credit_card_number" cc-number
+                  name = "ccNumber" id = "cardNumber" ng-model="card.number"
+                  placeholder = "Enter Your Credit Card number xxxx xxxx xxxx xxxx"
+                  autocomplete="off" required>
+                  <span class = "input-group-addon">
+                    <select id = "InputCardtype" name = "cardtype" required>
+                      <option value = "ELEC">Visa Electron</option>
+                      <option value = "VISAUK">Visa Debit UK</option>
+                      <option value = "VISA" selected>Visa</option>
+                      <option value = "MCRD">MasterCard</option>
+                      <option value = "MCDB">MasterCard Debit</option>
+                      <option value = "MSTO" >Maestro</option>
+                      <option value = "AMEX">American Express</option>
+                      <option value = "DINE">Diners</option>
+                    </select>
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-xs-3">
+                  <label for="cvc">CVC</label>
+                  <input type="text" class="form-control" id="cvc" cc-cvc cc-type="userForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" size="4" placeholder="CVC" maxlength="4">
+                </div>
+              </div>
+
+              <div class="form-group" cc-exp>
+                <label>Expiration Date</label>
+                <div class="input-group col-xs-3">
+                  <input type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" placeholder="MM" size="2" maxlength="2">
+                  <span class="input-group-addon"> <strong>/</strong> </span>
+                  <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" size="2" maxlength="2">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Amount</label>
+                <div class="input-group col-xs-8">
+                  <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="3" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required>
+                  <span class="input-group-addon"> <strong>.</strong> </span>
+                  <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="4" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL">
+                  <span class="input-group-addon">
+                    <select id="InputCurrency" name="currency" required>
+                      <option value="USD">USD</option>
+                      <option value="EUR">EUR</option>
+                      <option value="GBP" selected>GBP</option>
+                    </select>
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
+              </div>
+
+              <div vc-recaptcha theme="'light'" key="model.key"
+              on-create="setWidgetId(widgetId)" on-success="setResponse(response)">
+              </div>
+              <div class="form-group">
+                <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+              </div>
+            </div>
+
+          </form>
         </div>
+      </div>
+      <!-- =================================================================== -->
+      <!-- VALIDATION TABLES ================================================= -->
+      <!-- =================================================================== -->
+      <table class="table">
+        <tr>
+          <th>Valid Card?</th>
+          <th>Detection Card Type</th>
+        </tr>
+        <tr>
+          <td>
+            {{userForm.ccNumber.$valid | yesNo}}
+          </td>
+          <td>
+            {{userForm.ccNumber.$ccType || 'Unknown'}}
+          </td>
+        </tr>
+      </table>
 
 
+      <table class="table">
+        <tr>
+          <th>Valid CVC</th>
+        </tr>
+        <tr>
+          <td>
+            {{userForm.ccCvc.$valid | yesNo}}
+          </td>
+        </tr>
+      </table>
 
-        <div id="billing_details"  class="col-xs-4">
-          <h1>Billing Details</h1>
+      <table class="table">
+        <tr>
+          <th>Valid Month?</th>
+          <th>Valid Year?</th>
+        </tr>
+        <tr>
+          <td>
+            {{userForm.ccExpMonth.$valid | yesNo}}
+          </td>
+          <td>
+            {{userForm.ccExpYear.$valid | yesNo}}
+          </td>
+        </tr>
+      </table>
 
-          <div class = "form-group">
-            <label for = "InputCountry">Country</label>
-            <div class = "input-group">
-              <select id = "country" name = "country" ng-controller="CountryCtl" ng-model="country" required>
-                <option value="">-- Select a Country --</option>
-                <option ng-repeat="country in countries" value="{{country.alpha-3}}">{{country.name}}</option>
-              </select>
-              <i class = "glyphicon glyphicon-asterisk"></i>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="InputCounty">County</label>
-            <div class="input-group">
-              <input type="text" class="form-control" name="county" id="InputCounty" placeholder="Enter County" required>
-              <span class="input-group-addon">
-                <i class = "glyphicon glyphicon-asterisk"></i>
-              </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="InputCity">City</label>
-            <div class="input-group">
-              <input type="text" class="form-control" name="city" id="InputCounty" placeholder="Enter City" required>
-              <span class="input-group-addon">
-                <i class = "glyphicon glyphicon-asterisk"></i>
-              </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="InputAddress">Address</label>
-            <div class="input-group">
-              <input type="text" class="form-control" name="address" id="InputAddress" placeholder="Enter Address" required>
-              <span class="input-group-addon">
-                <i class = "glyphicon glyphicon-asterisk"></i>
-              </span>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="InputPostcode">Post Code</label>
-            <div class="input-group">
-              <input type="text" class="form-control" name="postcode" id="InputPostcode" placeholder="Enter Post Code">
-              <span class="input-group-addon"></span>
-            </div>
-          </div>
-
+      <div class="row">
+        <div class="col-xs-3">
+          <h3>Form</h3>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td ng-class="{ success: userForm.$valid, danger: userForm.$invalid }">Valid</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.$pristine, danger: !userForm.$pristine }">Pristine</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.$dirty }">Dirty</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <br>
-        <br>
-
-
-
-        <div id="card_details"  class="col-xs-4">
-          <h1>Card Info</h1>
-          <div class = "form-group">
-            <label for = "InputNumber">Card Number</label>
-            <div class = "input-group">
-              <input type = "text" class = "form-control credit_card_number" cc-number
-              name = "ccNumber" id = "cardNumber" ng-model="card.number"
-              placeholder = "Enter Your Credit Card number xxxx xxxx xxxx xxxx"
-              autocomplete="off" required>
-              <span class = "input-group-addon">
-                <select id = "InputCardtype" name = "cardtype" required>
-                  <option value = "ELEC">Visa Electron</option>
-                  <option value = "VISAUK">Visa Debit UK</option>
-                  <option value = "VISA" selected>Visa</option>
-                  <option value = "MCRD">MasterCard</option>
-                  <option value = "MCDB">MasterCard Debit</option>
-                  <option value = "MSTO" >Maestro</option>
-                  <option value = "AMEX">American Express</option>
-                  <option value = "DINE">Diners</option>
-                </select>
-                <i class = "glyphicon glyphicon-asterisk"></i>
-              </span>
-            </div>
-          </div>
-
-          <div class="form-group row">
-            <div class="col-xs-3">
-              <label for="cvc">CVC</label>
-              <input type="text" class="form-control" id="cvc" cc-cvc cc-type="userForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" size="4" placeholder="CVC" maxlength="4">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Expiration Date</label>
-            <div class="input-group col-xs-3" cc-exp>
-              <input type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" placeholder="MM" size="2" maxlength="2">
-              <span class="input-group-addon"> <strong>/</strong> </span>
-              <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" size="2" maxlength="2">
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label>Amount</label>
-            <div class="input-group col-xs-8" cc-exp>
-              <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="3" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required>
-              <span class="input-group-addon"> <strong>.</strong> </span>
-              <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="4" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL">
-              <span class="input-group-addon">
-                <select id="InputCurrency" name="currency" required>
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="GBP" selected>GBP</option>
-                </select>
-                <i class = "glyphicon glyphicon-asterisk"></i>
-              </span>
-            </div>
-          </div>
-
-          <!--<div class="form-group">
-            <label for="InputAmount">Amount</label>
-            <div class="input-group">
-              <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="2" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required>
-              <span class="input-group-addon"> <strong>.</strong> </span>
-              <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="2" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL">
-            </div>
-          </div>-->
-
-          <div class="form-group">
-            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
-          </div>
+        <div class="col-xs-3">
+          <h3>Name</h3>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td ng-class="{ success: userForm.firstname.$valid, danger: userForm.firstname.$invalid }">Valid</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.firstname.$pristine, danger: !userForm.firstname.$pristine }">Pristine</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.firstname.$dirty }">Dirty</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+        <div class="col-xs-3">
+          <h3>Username</h3>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td ng-class="{ success: userForm.lastname.$valid, danger: userForm.lastname.$invalid }">Valid</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.lastname.$pristine, danger: !userForm.lastname.$pristine }">Pristine</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.lastname.$dirty }">Dirty</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-xs-3">
+          <h3>Email</h3>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td ng-class="{ success: userForm.email.$valid, danger: userForm.email.$invalid }">Valid</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.email.$pristine, danger: !userForm.email.$pristine }">Pristine</td>
+              </tr>
+              <tr>
+                <td ng-class="{ success: userForm.email.$dirty }">Dirty</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
 
-      </form>
     </div>
   </div>
-  <!-- =================================================================== -->
-  <!-- VALIDATION TABLES ================================================= -->
-  <!-- =================================================================== -->
-  <table class="table">
-    <tr>
-      <th>Valid Card?</th>
-      <th>Detection Card Type</th>
-    </tr>
-    <tr>
-      <td>
-        {{userForm.ccNumber.$valid | yesNo}}
-      </td>
-      <td>
-        {{userForm.ccNumber.$ccType || 'Unknown'}}
-      </td>
-    </tr>
-  </table>
-
-
-  <table class="table">
-    <tr>
-      <th>Valid CVC</th>
-    </tr>
-    <tr>
-      <td>
-        {{userForm.ccCvc.$valid | yesNo}}
-      </td>
-    </tr>
-  </table>
-
-  <table class="table">
-    <tr>
-      <th>Valid Month?</th>
-      <th>Valid Year?</th>
-      <th>Valid Pair  ==></th>
-    </tr>
-    <tr>
-      <td>
-        {{userForm.ccExpMonth.$valid | yesNo}}
-      </td>
-      <td>
-        {{userForm.ccExpYear.$valid | yesNo}}
-      </td>
-      <td>
-        {{!userForm.$error.ccExp | yesNo}}
-      </td>
-    </tr>
-  </table>
-
-  <div class="row">
-    <div class="col-xs-3">
-      <h3>Form</h3>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td ng-class="{ success: userForm.$valid, danger: userForm.$invalid }">Valid</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.$pristine, danger: !userForm.$pristine }">Pristine</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.$dirty }">Dirty</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-xs-3">
-      <h3>Name</h3>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td ng-class="{ success: userForm.firstname.$valid, danger: userForm.firstname.$invalid }">Valid</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.firstname.$pristine, danger: !userForm.firstname.$pristine }">Pristine</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.firstname.$dirty }">Dirty</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-xs-3">
-      <h3>Username</h3>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td ng-class="{ success: userForm.lastname.$valid, danger: userForm.lastname.$invalid }">Valid</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.lastname.$pristine, danger: !userForm.lastname.$pristine }">Pristine</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.lastname.$dirty }">Dirty</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="col-xs-3">
-      <h3>Email</h3>
-      <table class="table table-bordered">
-        <tbody>
-          <tr>
-            <td ng-class="{ success: userForm.email.$valid, danger: userForm.email.$invalid }">Valid</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.email.$pristine, danger: !userForm.email.$pristine }">Pristine</td>
-          </tr>
-          <tr>
-            <td ng-class="{ success: userForm.email.$dirty }">Dirty</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-</div>
-</div>
 </div>
 
-<script src="../components/jquery/dist/jquery.js"></script>
-<script src="components/intl-tel-input/build/js/intlTelInput.min.js"></script>
-<script src="components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
-<script src="components/international-phone-number/releases/international-phone-number.js"></script>
-<script src="components/jquery/dist/jquery.js"></script>
+
+<!-- bower:js -->
+<script src="../bower_components/jquery/dist/jquery.js"></script>
+<script src="../bower_components/intl-tel-input/build/js/intlTelInput.min.js"></script>
+<script src="../bower_components/intl-tel-input/lib/libphonenumber/build/utils.js"></script>
+<script src="../bower_components/international-phone-number/releases/international-phone-number.js"></script>
+<!-- endbower -->
 <script src="../node_modules/card/lib/js/card.js"></script>
 <script>
 new Card({
