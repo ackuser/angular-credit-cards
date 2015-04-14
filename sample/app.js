@@ -1,19 +1,6 @@
 angular.module('validationApp',
 ['credit-cards','internationalPhoneNumber','vcRecaptcha']
 )
-.controller('mainController', function($scope, $http, element, attrs, ctrl) {
-
-  // function to submit the form after all validation has occurred
-  $scope.submit = function() {
-
-    // check to make sure the form is completely valid
-    if ($scope.userForm.$valid) {
-      alert('our form is amazing');
-    }
-
-  };
-
-})
 .controller('CountryCtl', function($scope, $http) {
   $scope.name = 'World';
 
@@ -28,13 +15,13 @@ angular.module('validationApp',
       });
 
 })
-.controller('testCtrl', function ($scope, vcRecaptchaService) {
+.controller('mainCtl', function ($scope, vcRecaptchaService) {
     console.log("this is your app's controller");
     $scope.response = null;
     $scope.widgetId = null;
 
     $scope.model = {
-        key: 'YOUR KEY'
+        key: 'YOUR_API_KEY'
     };
 
     $scope.setResponse = function (response) {
@@ -63,6 +50,12 @@ angular.module('validationApp',
 
         if (valid) {
             console.log('Success');
+
+            // check to make sure the form is completely valid
+            if ($scope.userForm.$valid) {
+              alert('our form is amazing');
+            }
+
         } else {
             console.log('Failed validation');
 

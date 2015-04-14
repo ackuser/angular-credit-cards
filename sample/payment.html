@@ -21,8 +21,6 @@
 
   <script data-require="angular-credit-cards@*" data-semver="2.0.0" src="https://rawgit.com/bendrucker/angular-credit-cards/v2.0.0/release/angular-credit-cards.js"></script>
 
-
-
   <!-- Include the JS ReCaptcha API -->
   <script src="//www.google.com/recaptcha/api.js?render=explicit&onload=vcRecaptchaApiLoaded" async defer></script>
 
@@ -33,11 +31,12 @@
 
 </head>
 
-<body ng-app="validationApp" ng-controller="testCtrl">
+<body ng-app="validationApp" ng-controller="mainCtl">
 
 
   <div class="row">
-    <div style="width: 30%;float:left;">
+    
+    <div class="col-md-4 text-center">
       <h3>
         Purchase Transaction
         <br>
@@ -52,14 +51,19 @@
         MasterCard, MasterCard Debit, Maestro
         <br>
         <p>
-        </div>
+    </div>
 
-        <div class="card-wrapper" style="display: inline;width:30%;float:left;" height="100">
-        </div>
+    <div class="col-md-4">
+      <div class="card-wrapper">
+      </div>
+    </div>
 
-        <img src = "img/cards.jpg" style="width: 15%;float:left;">
+    <div class="col-md-4 text-center">
+      <img src = "img/cards.jpg">
+    </div>
 
       </div>
+
       <div class="row">
 
 
@@ -138,7 +142,7 @@
                 <label for = "InputNumber">Phone Number</label>
                 <div class = "input-group">
                   <span class = "input-group-addon">
-                  <input type="tel" class = "form-control"  international-phone-number default-country="gb" ng-model="phone">
+                    <input type="tel" class = "form-control"  international-phone-number default-country="gb" ng-model="phone">
                   </span>
                 </div>
               </div>
