@@ -35,21 +35,21 @@
 
 
   <div class="row">
-    
+
     <div class="col-md-4 text-center">
       <h3>
         Purchase Transaction
-        <br>
+        <br/>
         using Card
       </h3>
-      <br>
+      <br/>
       <p>
         We only accept these cards
-        <br>
+        <br/>
         Visa, Visa Debit UK, Visa Electron,
-        <br>
+        <br/>
         MasterCard, MasterCard Debit, Maestro
-        <br>
+        <br/>
         <p>
     </div>
 
@@ -67,10 +67,10 @@
       <div class="row">
 
 
-        <form name="userForm" ng-submit="submit()" class="active" novalidate>
+        <form name="userForm" ng-submit="submit()" class="active">
 
 
-          <div id = "contact_info" class="col-xs-4">
+          <div id = "contact_info" class="col-xs-4 col-centered">
             <h1>Contact Information</h1>
             The fields marked with "<i class = "glyphicon glyphicon-asterisk"></i>" are required fields
 
@@ -78,7 +78,7 @@
             <div class="form-group" ng-class="{ 'has-error' : userForm.firstname.$invalid && !userForm.firstname.$pristine}">
               <label for = "InputLastname">First Name</label>
               <div class = "input-group">
-                <input type="text" name="firstname" id = "InputLast" class="form-control" ng-model="user.firstname" placeholder = "Enter Last Name" required>
+                <input type="text" name="firstname" id = "InputLast" class="form-control" ng-model="user.firstname" placeholder = "Enter Last Name" required />
                 <span class = "input-group-addon">
                   <select name = "title" id = "InputTitle">
                     <!--<option></option> -->
@@ -97,7 +97,7 @@
             <div class = "form-group">
               <label for = "InputMiddle">Middle Name</label>
               <div class = "input-group">
-                <input type = "text" class = "form-control" name = "middlename" id = "InputMiddle" placeholder = "Enter Middle Name">
+                <input type = "text" class = "form-control" name = "middlename" id = "InputMiddle" placeholder = "Enter Middle Name" />
                 <span class = "input-group-addon"></span></div>
               </div>
 
@@ -106,7 +106,7 @@
               <div class="form-group" ng-class="{ 'has-error' : userForm.lastname.$invalid && !userForm.lastname.$pristine}">
                 <label for = "InputLastname">Last Name</label>
                 <div class = "input-group">
-                  <input type="text" name="lastname" id = "InputLast" class="form-control" ng-model="user.lastname" placeholder = "Enter Last Name" required>
+                  <input type="text" name="lastname" id = "InputLast" class="form-control" ng-model="user.lastname" placeholder = "Enter Last Name" required />
                   <span class = "input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
@@ -119,7 +119,7 @@
               <div class = "form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine}">
                 <label for = "InputEmail">Your Email</label>
                 <div class = "input-group">
-                  <input type = "email" class = "form-control" id = "InputEmail" name = "email" ng-model="user.email" placeholder = "Enter Email" required >
+                  <input type = "email" class = "form-control" id = "InputEmail" name = "email" ng-model="user.email" placeholder = "Enter Email" required />
                   <span class = "input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
@@ -133,7 +133,7 @@
               <div class = "form-group">
                 <label for = "InputCompany">Company Name</label>
                 <div class = "input-group">
-                  <input type = "text" class = "form-control" name = "company" id = "InputCompany" placeholder = "Enter Company Name">
+                  <input type = "text" class = "form-control" name = "company" id = "InputCompany" placeholder = "Enter Company Name" />
                   <span class = "input-group-addon"></span>
                 </div>
               </div>
@@ -142,7 +142,7 @@
                 <label for = "InputNumber">Phone Number</label>
                 <div class = "input-group">
                   <span class = "input-group-addon">
-                    <input type="tel" class = "form-control"  international-phone-number default-country="gb" ng-model="phone">
+                    <input type="tel" class = "form-control"  international-phone-number default-country="gb" ng-model="phone" />
                   </span>
                 </div>
               </div>
@@ -167,7 +167,7 @@
               <div class="form-group" ng-class="{ 'has-error' : userForm.county.$invalid && !userForm.county.$pristine}">
                 <label for="InputCounty">County</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="county" id="InputCounty" ng-model="user.county" placeholder="Enter County" required>
+                  <input type="text" class="form-control" name="county" id="InputCounty" ng-model="user.county" placeholder="Enter County" required />
                   <span class="input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
@@ -180,7 +180,7 @@
               <div class="form-group" ng-class="{ 'has-error' : userForm.city.$invalid && !userForm.city.$pristine}">
                 <label for="InputCity">City</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="city" id="InputCity" ng-model="user.city" placeholder="Enter City" required>
+                  <input type="text" class="form-control" name="city" id="InputCity" ng-model="user.city" placeholder="Enter City" required />
                   <span class="input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
@@ -193,7 +193,7 @@
               <div class="form-group" ng-class="{ 'has-error' : userForm.address.$invalid && !userForm.address.$pristine}">
                 <label for="InputAddress">Address</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="address" id="InputAddress" ng-model="user.address" placeholder="Enter Address" required>
+                  <input type="text" class="form-control" name="address" id="InputAddress" ng-model="user.address" placeholder="Enter Address" required />
                   <span class="input-group-addon">
                     <i class = "glyphicon glyphicon-asterisk"></i>
                   </span>
@@ -206,14 +206,14 @@
               <div class="form-group">
                 <label for="InputPostcode">Post Code</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" name="postcode" id="InputPostcode" placeholder="Enter Post Code">
+                  <input type="text" class="form-control" name="postcode" id="InputPostcode" placeholder="Enter Post Code" />
                   <span class="input-group-addon"></span>
                 </div>
               </div>
 
             </div>
-            <br>
-            <br>
+            <br/>
+            <br/>
 
 
 
@@ -225,7 +225,7 @@
                   <input type = "text" class = "form-control credit_card_number" cc-number
                   name = "ccNumber" id = "cardNumber" ng-model="card.number"
                   placeholder = "Enter Your Credit Card number xxxx xxxx xxxx xxxx"
-                  autocomplete="off" required>
+                  autocomplete="off" pattern="(\d{4}[ \-]?\d{4}[ \-]?\d{4}[ \-]?(\d{1}|\d{4}))" required />
                   <span class = "input-group-addon">
                     <select id = "InputCardtype" name = "cardtype" required>
                       <option value = "ELEC">Visa Electron</option>
@@ -245,25 +245,33 @@
               <div class="form-group row">
                 <div class="col-xs-3">
                   <label for="cvc">CVC</label>
-                  <input type="text" class="form-control" id="cvc" cc-cvc cc-type="userForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" size="4" placeholder="CVC" maxlength="4">
+                  <div class = "input-group">
+                  <input type="text" class="form-control" id="cvc" cc-cvc cc-type="userForm.ccNumber.$ccType" name="ccCvc" ng-model="card.cvc" size="4" placeholder="CVC" maxlength="4" required />
+                  <span class = "input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
+                </div>
                 </div>
               </div>
 
               <div class="form-group" cc-exp>
                 <label>Expiration Date</label>
-                <div class="input-group col-xs-3">
-                  <input type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" placeholder="MM" size="2" maxlength="2">
+                <div class="input-group col-xs-4">
+                  <input type="text" class="form-control" cc-exp-month name="ccExpMonth" ng-model="card.expiration.month" placeholder="MM" size="3" maxlength="2" required />
                   <span class="input-group-addon"> <strong>/</strong> </span>
-                  <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" size="2" maxlength="2">
+                  <input type="text" class="form-control" cc-exp-year name="ccExpYear" ng-model="card.expiration.year"  placeholder="YY" size="3" maxlength="2" required />
+                  <span class = "input-group-addon">
+                    <i class = "glyphicon glyphicon-asterisk"></i>
+                  </span>
                 </div>
               </div>
 
               <div class="form-group">
                 <label>Amount</label>
                 <div class="input-group col-xs-8">
-                  <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="3" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required>
+                  <input type="numberInt" class="form-control" name="amount" min="10" max="999" size="6"  maxlength="3" step="10" pattern="[0-9]+" id="InputAmountInt" placeholder="Price e.g 100" required />
                   <span class="input-group-addon"> <strong>.</strong> </span>
-                  <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="4" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL">
+                  <input type="numberDec" class="form-control" name="amount" min="0" max="99" size="4" maxlength="2" step="1" pattern="[0-9]+" id="InputAmountDec" placeholder="DECIMAL" />
                   <span class="input-group-addon">
                     <select id="InputCurrency" name="currency" required>
                       <option value="USD">USD</option>
@@ -279,7 +287,7 @@
               on-create="setWidgetId(widgetId)" on-success="setResponse(response)">
             </div>
             <div class="form-group">
-              <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right">
+              <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-info pull-right" />
             </div>
           </div>
 

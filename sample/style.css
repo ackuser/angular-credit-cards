@@ -16,3 +16,11 @@ label{
 form {
     margin: 30px;
 }
+h1 {
+    font-style: bold;
+    color: #0095dd;
+    //font-family: Consolas,Monaco,'Andale Mono',monospace;
+    margin-bottom: 24px;
+    font-weight: bold;
+
+}

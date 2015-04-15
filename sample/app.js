@@ -21,7 +21,7 @@ angular.module('validationApp',
     $scope.widgetId = null;
 
     $scope.model = {
-        key: 'YOUR_API_KEY'
+        key: 'YOUR KEY'
     };
 
     $scope.setResponse = function (response) {
@@ -37,7 +37,7 @@ angular.module('validationApp',
     };
 
     $scope.submit = function () {
-        var valid;
+        var validCaptcha=true;
 
         /**
          * SERVER SIDE VALIDATION
@@ -48,10 +48,12 @@ angular.module('validationApp',
          */
         console.log('sending the captcha response to the server', $scope.response);
 
-        if (valid) {
+        if (validCaptcha) {
             console.log('Success');
 
             // check to make sure the form is completely valid
+            console.log($scope.userForm);
+            alert($scope.userForm);
             if ($scope.userForm.$valid) {
               alert('our form is amazing');
             }
